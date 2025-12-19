@@ -1,0 +1,26 @@
+fmriprep_dir: "/home/lukeh/hpcworking/shared/projects/LST7T/data/derivatives/fmriprep/"
+bids_dir: "/home/lukeh/hpcworking/shared/projects/LST7T/data/bids/"
+in_dir: "/home/lukeh/hpcworking/shared/projects/LST7T/data/"
+
+
+pybids_inputs:
+  bold:
+    filters:
+      task: "LST"
+      suffix: "bold"
+      extension: "dtseries.nii"
+      space: "fsLR"
+      datatype: "func"
+    wildcards:
+      - subject
+      - run
+
+out_data: "/home/lukeh/projects/LSTNN/data/fMRI_late/"
+
+denoise:
+  - "14p"
+
+model:
+  - 144
+
+

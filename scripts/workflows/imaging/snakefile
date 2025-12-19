@@ -1,0 +1,124 @@
+from snakebids import bids, generate_inputs
+configfile: 'config.yml'
+
+# organise inputs
+inputs = generate_inputs(
+    bids_dir=config['fmriprep_dir'],
+    pybids_inputs=config['pybids_inputs'])
+
+#define a subject only wildcard for the 
+#rsa rule (probably not best practice)
+subj_wc =  dict(inputs.wildcards['bold'])
+del subj_wc['run']
+
+# # for testing only
+# inputs.subjects = inputs.subjects[0:1]
+# inputs.zip_lists['bold']['subject'] = inputs.subjects[0:1]
+
+# organise outputs
+outputs = expand(
+            expand(
+                bids(
+                    root=config['out_data']+'fmriprep_denoised_glm_ls1/',
+                    space=config['pybids_inputs']['bold']['filters']['space'],
+                    task=config['pybids_inputs']['bold']['filters']['task'],
+                    denoise='{denoise}',
+                    model='{model}',
+                    suffix='glm.nc',
+                    **subj_wc
+                    ),
+                zip,
+                allow_missing=True,
+                **inputs['bold'].zip_lists
+            ),
+            denoise=config['denoise'],
+            model=config['model'],
+        )
+
+
+rule all:
+    input: outputs
+
+
+# def get_json_from_bold(bold_input):
+#     split_input = bold_input.split('_bold')
+#     return split_input[0]+'_bold.json'
+
+
+# def get_confounds_from_bold(bold_input):
+#     split_input = bold_input.split('space-')
+#     return split_input[0]+'desc-confounds_timeseries.tsv'
+
+
+rule glm:
+    input:
+        bold = (bids(
+                root=config['in_dir']+'derivatives/fmriprep_denoised/',
+                space='{space}',
+                run=1,
+                task='{task}',
+                denoise='{denoise}',
+                suffix='bold.dtseries.nii',
+                **subj_wc
+                ),
+            bids(
+                root=config['in_dir']+'derivatives/fmriprep_denoised/',
+                space='{space}',
+                run=2,
+                task='{task}',
+                denoise='{denoise}',
+                suffix='bold.dtseries.nii',
+                **subj_wc
+                ),
+            bids(
+                root=config['in_dir']+'derivatives/fmriprep_denoised/',
+                space='{space}',
+                run=3,
+                task='{task}',
+                denoise='{denoise}',
+                suffix='bold.dtseries.nii',
+                **subj_wc
+                )),
+        events = (bids(
+                root=config['bids_dir'],
+                datatype='func',
+                run=1,
+                task='{task}',
+                suffix='events.tsv',
+                **subj_wc
+                ),
+            bids(
+                root=config['bids_dir'],
+                datatype='func',
+                run=2,
+                task='{task}',
+                suffix='events.tsv',
+                **subj_wc
+                ),
+            bids(
+                root=config['bids_dir'],
+                datatype='func',
+                run=3,
+                task='{task}',
+                suffix='events.tsv',
+                **subj_wc
+                )),
+        json = bids(
+            root=config['bids_dir'],
+            datatype='func',
+            run=1,
+            task='{task}',
+            suffix='bold.json',
+            **subj_wc)
+    output:
+        bids(
+            root=config['out_data']+'fmriprep_denoised_glm_ls1/',
+            space='{space}',
+            task='{task}',
+            denoise='{denoise}',
+            model='{model}',
+            suffix='glm.nc',
+            **subj_wc,
+            )
+    shell:
+        'python ../scripts/run_glm_ls1.py --input {input.bold} --events {input.events} --bold_json {input.json} --model {wildcards.model} --output {output}'

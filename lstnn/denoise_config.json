@@ -1,0 +1,187 @@
+{
+  "36p+spikereg": {
+    "confound_variables": [
+      {
+        "name": "global_signal",
+        "derivative": true,
+        "quadratic": true,
+        "derivative2": true
+      },
+      {
+        "name": "csf",
+        "derivative": true,
+        "quadratic": true,
+        "derivative2": true
+      },
+      {
+        "name": "white_matter",
+        "derivative": true,
+        "quadratic": true,
+        "derivative2": true
+      },
+      {
+        "name": "trans_x",
+        "derivative": true,
+        "quadratic": true,
+        "derivative2": true
+      },
+      {
+        "name": "trans_y",
+        "derivative": true,
+        "quadratic": true,
+        "derivative2": true
+      },
+      {
+        "name": "trans_z",
+        "derivative": true,
+        "quadratic": true,
+        "derivative2": true
+      },
+      {
+        "name": "rot_x",
+        "derivative": true,
+        "quadratic": true,
+        "derivative2": true
+      },
+      {
+        "name": "rot_y",
+        "derivative": true,
+        "quadratic": true,
+        "derivative2": true
+      },
+      {
+        "name": "rot_z",
+        "derivative": true,
+        "quadratic": true,
+        "derivative2": true
+      }
+    ],
+    "detrend": true,
+    "standardize": false,
+    "filter": {
+      "run": true,
+      "high_pass": 0.01,
+      "low_pass": 0.1
+    },
+    "drop_frames": {
+      "run": false,
+      "n_frames": 0
+    },
+    "spike_regression": {
+      "run": true,
+      "measure": "framewise_displacement",
+      "thresh": 0.5
+    }
+  },
+  "12XaCompCor": {
+    "confound_variables": [
+      {
+        "name": "trans_x",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "trans_y",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "trans_z",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "rot_x",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "rot_y",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "rot_z",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "c_comp_cor_00",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "c_comp_cor_01",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "c_comp_cor_02",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "c_comp_cor_03",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "c_comp_cor_04",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "w_comp_cor_00",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "w_comp_cor_01",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "w_comp_cor_02",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "w_comp_cor_03",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      },
+      {
+        "name": "w_comp_cor_04",
+        "derivative": true,
+        "quadratic": false,
+        "derivative2": false
+      }
+    ],
+    "detrend": true,
+    "standardize": false,
+    "filter": {
+      "run": false
+    },
+    "drop_frames": {
+      "run": false
+    },
+    "spike_regression": {
+      "run": false
+    }
+  }
+}
