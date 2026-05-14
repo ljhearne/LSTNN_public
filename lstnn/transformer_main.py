@@ -266,7 +266,7 @@ class Transformer(torch.nn.Module):
         #     torch.nn.Linear(self.embedding_dim,self.output_dim)
         # )
         
-    def forward(self, task_inputs, noise=False, dropout=False):
+    def forward(self, task_inputs, noise=False, dropout=False, temperature=1.0):
         """
         Run a forward pass of a trial by input_elements matrix
         """
@@ -287,6 +287,10 @@ class Transformer(torch.nn.Module):
             for block in self.blocks:
                 embedding, l1_attn = block.forward(embedding)
                 l1_reg += l1_attn
+            transformer_out = embedding
+        elif temperature!=1.0: ## TI, added for reviewer response analysis
+            for block in self.blocks:
+                embedding = block.forward(embedding,temperature=temperature)
             transformer_out = embedding
         else:
             transformer_out = checkpoint_sequential(self.blocks, segments = len(self.blocks), input = embedding)
@@ -369,7 +373,7 @@ class TransformerBlock(torch.nn.Module):
         self.layernorm0 = torch.nn.LayerNorm(self.embedding_dim)
         self.layernorm1 = torch.nn.LayerNorm(self.embedding_dim)
 
-    def forward(self, embedding, noise=False, dropout=False):
+    def forward(self, embedding, noise=False, dropout=False, temperature=1.0):
         """
         Run a forward pass of a trial by input_elements matrix
         For each time window, pass each 
@@ -403,7 +407,7 @@ class TransformerBlock(torch.nn.Module):
         else:
             embedding = self.pe(embedding) # positional encoding
             embedding = self.dropout_embed(embedding)
-            attn_outputs, attn_out_weights = self.selfattention(embedding, embedding, embedding, need_weights=False)
+            attn_outputs, attn_out_weights = self.selfattention(embedding / temperature, embedding, embedding, need_weights=False)
         #attn_outputs = self.layernorm0(attn_outputs)
         attn_outputs = self.layernorm0(attn_outputs+embedding) # w resid connection
         transformer_out = self.mlp(attn_outputs)

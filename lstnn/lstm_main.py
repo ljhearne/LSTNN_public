@@ -88,7 +88,8 @@ class LSTM(nn.Module):
             self.hidden_size = hidden_size
 
         #self.final_layer = torch.nn.Linear(self.hidden_size, output_size)
-        self.final_layer = nn.Sequential(nn.Linear(hidden_size, output_size),
+        self.final_layer = nn.Sequential(nn.Linear(self.hidden_size, 
+                                                   output_size),
                                          torch.nn.LogSoftmax(dim=-1))
 
     def forward(self, x):
@@ -97,9 +98,11 @@ class LSTM(nn.Module):
 
         if self.bidirectional:
             h_0 = Variable(torch.zeros(self.num_layers*2, self.batch_size,
-                                       int(self.hidden_size/2))).to(self.device)
+                                       int(self.hidden_size/2))
+                                       ).to(self.device)
             c_0 = Variable(torch.zeros(self.num_layers*2, self.batch_size,
-                                       int(self.hidden_size/2))).to(self.device)
+                                       int(self.hidden_size/2))
+                                       ).to(self.device)
         else:
             h_0 = Variable(torch.zeros(self.num_layers, self.batch_size,
                                        self.hidden_size)).to(self.device)

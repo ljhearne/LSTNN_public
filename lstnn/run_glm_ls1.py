@@ -84,10 +84,10 @@ def run_glm_ls1(inputs, events, bold_json, model, output):
 
     # convert to a nilearn df
     nilearn_events = pd.DataFrame(columns=['onset', 'trial_type'])
-    # nilearn_events['onset'] = df['onset'].copy()
-    # nilearn_events['duration'] = 5
-    nilearn_events['onset'] = df['onset'].copy() +2 # "late stage processing"
-    nilearn_events['duration'] = 3
+    nilearn_events['onset'] = df['onset'].copy()
+    nilearn_events['duration'] = 5
+    #nilearn_events['onset'] = df['onset'].copy() +2 # "late stage processing"
+    #nilearn_events['duration'] = 3
     #nilearn_events['trial_type'] = 'LST'+df['LST_id_orig'].astype('str')
     nilearn_events['trial_type'] = 'LST'+df['LST_id'].astype('str')
 
