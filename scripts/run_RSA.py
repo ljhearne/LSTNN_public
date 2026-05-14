@@ -3,16 +3,16 @@ from lstnn.generate_fMRI_rdms import generate_group_rdms
 from lstnn.compare_rdms import compare_models_to_fmri
 from run_stats import run_statistics
 
-method_fmri = "euclidean"  #"crossnobis"
+method_fmri = "crossnobis"  #"crossnobis"
 method_ann = "euclidean"  # "euclidean"
-compare_method = "corr"
-epoch = 4000
+compare_method = "corr"  # "corr"
+epoch = 0  # 4000
 atlas = "Glasser"
 group = "group"
-overwrite = True
+overwrite = False
 
 # Generate the fMRI rdms
-run = True
+run = False
 if run:
     out = (
         f"/home/lukeh/projects/LSTNN/data/fMRI/rdms/{group}_atlas-{atlas}"
@@ -23,7 +23,7 @@ if run:
 # Main model comparison
 run = True
 pe_desc = "2dpe"
-n_perms = 10
+n_perms = 10000
 if run:
     out = (
         f"/home/lukeh/projects/LSTNN/results/model_comparison/{group}_"

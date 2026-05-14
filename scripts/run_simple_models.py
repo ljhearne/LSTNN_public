@@ -169,7 +169,6 @@ def train(dataloader, model, loss_fn, optimizer, device='cpu'):
 
 def run(model_label, seed, device, hs=160):
 
-    hs = 2560
     # Init. seed
     set_global_seed(seed)
 
