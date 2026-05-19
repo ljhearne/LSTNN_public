@@ -154,7 +154,7 @@ def create_ds_from_ann(weights, label):
     return ds
 
 
-def get_transformer_weights(LST_puzzle_ds, pe_desc, epoch):
+def get_transformer_weights(LST_puzzle_ds, pe_desc, epoch, data_dir=data_dir_ldrive):
     """
     Load trained transformer models with different seeds, extract and return
     attention weights, attention outputs, MLP outputs, and response predictions
@@ -210,7 +210,7 @@ def get_transformer_weights(LST_puzzle_ds, pe_desc, epoch):
         )
         model = model.to(device=torch.device(device))
 
-        model_file = f"{data_dir_ldrive}ito_models/{modelname}s-{seed}_e-{epoch}.pt"
+        model_file = f"{data_dir}ito_models/{modelname}s-{seed}_e-{epoch}.pt"
         model.load_state_dict(torch.load(
             model_file, map_location=torch.device(device)))
 
