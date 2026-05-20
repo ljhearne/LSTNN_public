@@ -13,6 +13,6 @@ Public code for the LSTNN project "Aligning transformer circuit mechanisms to ne
         - Analysis 2a: fMRI and ANN comparison
         - Analysis 3: Impact of Positional Encoding (PE)
         - Analysis 4a: Analysis of attention weights and relationship to reasoning complexity
-        - Analysis 4b: Analysis of attention weights and relationship to reasoning complexity
+        - Analysis 4b: Temperature
         - Analysis 5:
 
