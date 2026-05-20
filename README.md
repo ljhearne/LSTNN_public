@@ -4,7 +4,6 @@ Public code for the LSTNN project "Aligning transformer circuit mechanisms to ne
 ## Notes:
 - "lstnn" contains scripts to perform the fMRI analyses and ANN models. 
     - Follow https://goodresearch.dev/index.html to install the "lstnn" package, or copy functions as needed. 
-    - Note these more intermediary functions can't be reproduced here as the input data are too large (i.e., neuroimaging files). For example, the fMRI RSA can't be performed as the input CIFTI files are not on github.
 - "processed_data" contains processed data that allows results to be plotted and high-level stats.
 -  "scripts" contains high-level scripts to perform the analyses.
     - Again some of these require data too big to put on github (e.g., run_decoding relies on neuroimaging data)
