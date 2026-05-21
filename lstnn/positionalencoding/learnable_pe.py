@@ -1,3 +1,9 @@
+"""Learnable positional encoding module.
+
+Provides a learned embedding that replaces fixed sinusoidal or relative
+positional encodings with a trainable parameter. Used by
+transformer_main.py when the 'learn' or 'clearn' PE variant is selected.
+"""
 import numpy as np
 import torch
 import torch.nn.functional as F

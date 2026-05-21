@@ -1,3 +1,9 @@
+"""Sparse (block-sparse and strided) attention mechanisms.
+
+Implements local sliding-window and strided attention patterns from the
+Sparse Transformer. Used by transformer_main.py for the sparse attention
+positional encoding variants.
+"""
 import numpy as np
 import torch
 import torch.nn.functional as F
