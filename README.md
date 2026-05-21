@@ -2,19 +2,20 @@
 
 Public code repository for the research project **"Aligning transformer circuit mechanisms to neural representations in relational reasoning"** published in TBA.
 
-This project investigates how Transformer neural network models solve the Latin Squares Task (LST) — a relational reasoning task — and compares their internal representations to fMRI data, as well as human behaviour. 
+This project investigates how Transformer neural network models solve the Latin Squares Task (LST) — a relational reasoning task — and compares their internal representations to fMRI data, as well as human behaviour.
+
 ---
 
 ## Overview
 
 The repository implements a pipeline including synthetic puzzle generation through neural network training to fMRI Representational Similarity Analysis (RSA):
 
-1. **Generate synthetic LST puzzles** at three levels of relational complexity (Binary, Ternary, Quaternary)
-2. **Train neural network models** (Transformer, LSTM, MLP) on the LST under various positional encoding schemes
-3. **Process fMRI data** from human participants performing the same task (denoising, GLM, parcellation)
-4. **Compute Representational Dissimilarity Matrices (RDMs)** from both model internal activations and brain activity
+1. **Generate synthetic LST puzzles** at three levels of relational complexity (Binary/1-vec, Ternary/2-vec, Quaternary/3-vec)
+2. **Train neural network models** (Transformer, LSTM, MLP) on the LST (as well as learnable PE transformer)
+3. **Process fMRI data** from human participants performing the same task (denoising, GLM)
+4. **Compute Representational Dissimilarity Matrices (RDMs)** from both model internal activations, brain activity, and task features
 5. **Compare model RDMs to fMRI RDMs** via permutation testing to assess brain alignment
-6. **Reproduce manuscript figures and high-level statistics** via Jupyter notebooks
+6. **Reproduce manuscript figures and statistics** via Jupyter notebooks
 
 ---
 
@@ -79,13 +80,6 @@ LSTNN_public/
 ```
 
 ---
-
-## Setup
-
-### Prerequisites
-
-- Python 3.10+
-- PyTorch (tested with 1.10+)
 
 ## Brief Usage Documentation
 
