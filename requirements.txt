@@ -1,0 +1,31 @@
+# Core ML
+torch>=1.10.0
+numpy
+pandas
+scipy
+scikit-learn
+
+# Analysis & statistics
+rsatoolbox
+pingouin
+statsmodels
+torchlens>=1.0,<2.0  # requires Python >= 3.10
+
+# Visualization
+matplotlib
+seaborn
+tqdm
+joblib
+
+# Neuroimaging (only needed for fMRI analyses)
+nilearn
+nibabel
+xarray
+hcp_utils
+cmasher
+neuromaps
+netneurotools
+
+# Workflow (only needed for running the GLM pipeline)
+snakemake
+snakebids
