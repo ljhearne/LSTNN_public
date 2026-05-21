@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Model checkpoints (can be regenerated)
+*.pt
+
+# Large generated data (regeneratable); 
+# everything can be regenerated from raw data and code but I'll leave these here for now for convenience
+#processed_data/fmri_rdms/
+processed_data/brain_plots/
+processed_data/noise_ceilings/
+#processed_data/ito_models/
+#processed_data/model-ffn/
+#processed_data/model-lstm/
+#processed_data/pe-*.csv
+
+# Neuroimaging intermediate files
+*.nii
+*.nii.gz
+*.gii
+*.dtseries.nii
+*.dconn.nii
+*.tsv
