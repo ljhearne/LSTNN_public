@@ -1,8 +1,19 @@
+"""
+Orchestrates the full Representational Similarity Analysis pipeline:
+generates fMRI RDMs from group-level BOLD data, compares Transformer
+model RDMs (from all positional encoding variants) to brain RDMs, and
+runs permutation-based statistics on the results.
+"""
+
 # %%
+import os
+from pathlib import Path
 from lstnn.generate_fMRI_rdms import generate_group_rdms
 from lstnn.compare_rdms import compare_models_to_fmri
 from run_stats import run_statistics
 
+
+PROJECT_ROOT = Path(os.path.dirname(os.path.abspath(__file__))).parent
 method_fmri = "crossnobis"  #"crossnobis"
 method_ann = "euclidean"  # "euclidean"
 compare_method = "corr"  # "corr"
@@ -15,7 +26,7 @@ overwrite = False
 run = False
 if run:
     out = (
-        f"/home/lukeh/projects/LSTNN/data/fMRI/rdms/{group}_atlas-{atlas}"
+        str(PROJECT_ROOT / "processed_data" / "fmri_rdms" / f"{group}_atlas-{atlas}")
         f"/method_{method_fmri}"
     )
     generate_group_rdms(method_fmri, out, atlas, overwrite)
@@ -26,7 +37,7 @@ pe_desc = "2dpe"
 n_perms = 10000
 if run:
     out = (
-        f"/home/lukeh/projects/LSTNN/results/model_comparison/{group}_"
+        str(PROJECT_ROOT / "processed_data" / f"pe-{pe_desc}_{group}_")
         f"atlas-{atlas}/pe-{pe_desc}_fmethod-{method_fmri}_"
         f"amethod-{method_ann}_cmethod-{compare_method}_epoch-{epoch}_"
         f"nperms-{n_perms}.csv"
@@ -39,7 +50,7 @@ run = True
 if run:
     print("Running stats...")
     out = (
-        f"/home/lukeh/projects/LSTNN/results/model_comparison/{group}_"
+        str(PROJECT_ROOT / "processed_data" / f"pe-{pe_desc}_{group}_")
         f"atlas-{atlas}/pe-{pe_desc}_fmethod-{method_fmri}_"
         f"amethod-{method_ann}_cmethod-{compare_method}_epoch-{epoch}_"
         f"nperms-{n_perms}_stats.csv"
@@ -62,7 +73,7 @@ pe_descs = [
 if run:
     for pe_desc in pe_descs:
         out = (
-            f"/home/lukeh/projects/LSTNN/results/model_comparison/{group}_"
+            str(PROJECT_ROOT / "processed_data" / f"pe-{pe_desc}_{group}_")
             f"atlas-{atlas}/pe-{pe_desc}_fmethod-{method_fmri}_"
             f"amethod-{method_ann}_cmethod-{compare_method}_epoch-{epoch}_"
             f"nperms-{n_perms}.csv"
@@ -78,7 +89,7 @@ if run:
     print("Running stats...")
     for pe_desc in pe_descs:
         out = (
-            f"/home/lukeh/projects/LSTNN/results/model_comparison/{group}_"
+            str(PROJECT_ROOT / "processed_data" / f"pe-{pe_desc}_{group}_")
             f"atlas-{atlas}/pe-{pe_desc}_fmethod-{method_fmri}_"
             f"amethod-{method_ann}_cmethod-{compare_method}_epoch-{epoch}_"
             f"nperms-{n_perms}_stats.csv"
@@ -95,7 +106,7 @@ pe_descs = ["learn-0.1", "learn-0.2", "learn-2.0", "learn-3.0"]
 if run:
     for pe_desc in pe_descs:
         out = (
-            f"/home/lukeh/projects/LSTNN/results/model_comparison/{group}_"
+            str(PROJECT_ROOT / "processed_data" / f"pe-{pe_desc}_{group}_")
             f"atlas-{atlas}/pe-{pe_desc}_fmethod-{method_fmri}_"
             f"amethod-{method_ann}_cmethod-{compare_method}_epoch-{epoch}_"
             f"nperms-{n_perms}.csv"
@@ -111,7 +122,7 @@ if run:
     print("Running stats...")
     for pe_desc in pe_descs:
         out = (
-            f"/home/lukeh/projects/LSTNN/results/model_comparison/{group}_"
+            str(PROJECT_ROOT / "processed_data" / f"pe-{pe_desc}_{group}_")
             f"atlas-{atlas}/pe-{pe_desc}_fmethod-{method_fmri}_"
             f"amethod-{method_ann}_cmethod-{compare_method}_epoch-{epoch}_"
             f"nperms-{n_perms}_stats.csv"

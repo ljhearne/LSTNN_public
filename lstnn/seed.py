@@ -1,6 +1,9 @@
-# see https://github.com/catalyst-team/catalyst/blob/f909e5b44eb4c2c26039e201bcbe67001529a515/catalyst/utils/seed.py
-# reproducibility in pytorch is more extensive
-# than a one-liner.
+"""Global reproducibility seed setter.
+
+Sets random seeds for PyTorch, NumPy, and Python's random module to ensure
+reproducible training runs. Based on the catalyst approach to PyTorch
+reproducibility.
+"""
 import random
 import numpy as np
 from packaging.version import parse, Version

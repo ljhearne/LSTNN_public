@@ -1,3 +1,9 @@
+"""First-level GLM for the Latin Squares Task fMRI experiment.
+
+Runs a separate GLM per trial (144 total) using nilearn, computing beta,
+t, and z statistics for each cortical vertex. Outputs a NetCDF file used
+by generate_fMRI_rdms.py and brain_imaging_helpers.py.
+"""
 import nibabel as nb
 import numpy as np
 import pandas as pd

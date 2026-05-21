@@ -1,3 +1,10 @@
+"""Core Transformer model with 13+ positional encoding variants.
+
+Implements the main Transformer class, TransformerBlock, and multiple
+attention mechanisms (sinusoidal PE, 2D PE, relative PE, RoPE, learnable
+PE, no PE). Used by run_transformer.py for training and by all analysis
+notebooks that load trained models for evaluation.
+"""
 import torch
 import math
 import torch.nn.functional as F

@@ -10,7 +10,7 @@ import pandas as pd
 
 class Parcellation:
     def __init__(self, cortex='Glasser', cortex_res=None, scale=1, volumetric=False,
-                 path='/home/lukeh/LabData/Lab_LucaC/Luke/Backups/hpc_backups/parcellations/Tian2020MSA_2023/'):
+                 path=None):  # Set to parcellation directory; see README for download instructions
 
         # Init.
         self.cortex = cortex
@@ -28,7 +28,7 @@ class Parcellation:
                 str(scale)+'.dlabel.nii'
             details = path+'3T/Cortex-Subcortex/Q1-Q6_RelatedValidation210.CorticalAreas_dil_Final_Final_Areas_Group_Colors.32k_fs_LR_Tian_Subcortex_S' + \
                 str(scale)+'_label.txt'
-            network_details = '/home/lukeh/LabData/Lab_LucaC/Luke/Backups/hpc_backups/parcellations/CortexSubcortex_ColeAnticevic_NetPartition_wSubcorGSR_parcels_LR_LabelKey.txt'
+            # network_details = '/home/lukeh/LabData/...'  # original lab path; see README
             file_volume = None
 
         elif cortex == 'Schaefer':

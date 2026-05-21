@@ -1,3 +1,11 @@
+"""
+Trains FFN (MLP) and LSTM baseline models on the Latin Squares Task (LST).
+Iterates over 15 random seeds, saves checkpoints, and logs accuracy/loss
+results to CSV for comparison against the Transformer model.
+"""
+
+import os
+from pathlib import Path
 import torch
 import pandas as pd
 from torch import nn
@@ -11,6 +19,8 @@ import numpy as np
 import time
 import argparse
 
+
+PROJECT_ROOT = Path(os.path.dirname(os.path.abspath(__file__))).parent
 parser = argparse.ArgumentParser()
 parser.add_argument('--seed', type=int)
 parser.add_argument('--model_label', type=str)
@@ -21,10 +31,10 @@ torch.set_num_threads(4)
 n_epochs = 4000
 checkpoint_freq = 200
 curriculum = 'All'
-training_files = ['/home/lukeh/projects/LSTNN/data/nn/generated_puzzle_data_binary_dist80.csv',
-                  '/home/lukeh/projects/LSTNN/data/nn/generated_puzzle_data_ternary_dist80.csv',
-                  '/home/lukeh/projects/LSTNN/data/nn/generated_puzzle_data_quaternary_dist80.csv']
-validation_file = '/home/lukeh/projects/LSTNN/data/nn/puzzle_data_original.csv'
+training_files = [str(PROJECT_ROOT / 'processed_data' / 'generated_puzzle_data_binary_dist80.csv'),
+                  str(PROJECT_ROOT / 'processed_data' / 'generated_puzzle_data_ternary_dist80.csv'),
+                  str(PROJECT_ROOT / 'processed_data' / 'generated_puzzle_data_quaternary_dist80.csv')]
+validation_file = str(PROJECT_ROOT / 'processed_data' / 'puzzle_data_original.csv')
 train_batch_size = 128
 valid_batch_size = 108
 learning_rate = 0.0001
@@ -173,7 +183,7 @@ def run(model_label, seed, device, hs=160):
     set_global_seed(seed)
 
     # organise the output
-    resultdir = f"/home/lukeh/projects/LSTNN/results/" \
+    resultdir = str(PROJECT_ROOT / "processed_data" / "model-{model_type}") + "/" \
                 f"model-{model_label}/" \
                 f"nl-4_" \
                 f"do-0_" \

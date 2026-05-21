@@ -1,3 +1,9 @@
+"""Feedforward (MLP) baseline model for the Latin Squares Task.
+
+A simple MLP with ReLU activations that maps flattened puzzle
+states to output logits. Used by run_simple_models.py as a non-transformer
+baseline for comparison.
+"""
 import torch
 from torch import nn
 from torch.autograd import Variable

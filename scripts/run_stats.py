@@ -1,4 +1,12 @@
+"""
+Performs permutation-based statistical testing on RDM comparison results.
+Computes empirical p-values, applies FDR correction for multiple comparisons
+across brain regions, and writes summary statistics to CSV.
+"""
+
+from pathlib import Path
 from sys import exit
+import os
 from os.path import isfile
 import argparse
 import pandas as pd
@@ -8,6 +16,8 @@ import numpy as np
 import argparse
 from lstnn.parcellation import Parcellation
 
+
+PROJECT_ROOT = Path(os.path.dirname(os.path.abspath(__file__))).parent
 # Create parser for options
 parser = argparse.ArgumentParser(
     description='''Run RDM comparison''')
@@ -78,7 +88,7 @@ def run_statistics(pe_desc, group,
     # get the parcellation
     parc = Parcellation(cortex=cortex, cortex_res=cortex_res, scale=scale)
 
-    in_file = f"/home/lukeh/projects/LSTNN/results/model_comparison/{group}_"
+    in_file = str(PROJECT_ROOT / "processed_data" / f"pe-{pe_desc}_{group}_")
     in_file += f"atlas-{atlas}/pe-{pe_desc}_"
     in_file += f"fmethod-{rdm_method_fmri}_"
     in_file += f"amethod-{rdm_method_ann}_cmethod-{compare_method}_"
@@ -122,19 +132,6 @@ def run_statistics(pe_desc, group,
         keep_df.loc[(keep_df.model == model), "p_FDR"] = p_fdr.copy()
         keep_df.loc[(keep_df.model == model), "percentile"] = np.array(percentiles).copy()
 
-    # # Assign network labels
-    # keep_df["network"] = np.nan
-    # network_df = pd.read_csv(
-    #     '/home/lukeh/projects/RelationalRepresentations/data/CortexSubcortex_ColeAnticevic_NetPartition_wSubcorGSR_parcels_LR_LabelKey.txt', delimiter='\t')
-
-    # # Match the network labels to roi indices
-    # for i, parcel in enumerate(keep_df.parcel.unique()):
-    #     label = network_df[network_df.GLASSERLABELNAME ==
-    #                        parcel].NETWORK.values
-    #     if label.size == 1:
-    #         label = label[0]
-    #     elif label.size == 0:
-    #         label = 'subcortex'
     print("Applying network labels...")
     keep_df["network"] = parc.apply_networks(keep_df["parcel"].to_list())
     keep_df.to_csv(out, index=False)
@@ -149,7 +146,3 @@ if __name__ == '__main__':
                    args.rdm_method_fmri, args.rdm_method_ann,
                    args.compare_method, args.epoch,
                    args.n_perms, args.out, args.atlas, args.overwrite)
-#             out=/home/lukeh/projects/LSTNN/results/model_comparison/${group}_atlas-${atlas}/pe-${pe_desc}
-#             out=${out}_fmethod-${fmethod}_emethod-${emethod}_amethod-${amethod}_cmethod-${cmethod}
-#             out=${out}_epoch-${epoch}_nperms-${n_perms}_stats.csv
-#  python ../../run_stats.py  --pe_desc 2dpe --group group --rdm_method_fmri crossnobis --rdm_method_ann euclidean --compare_method corr --epoch 4000 --n_perms 10000 --out ${out}  --atlas ${atlas} #--overwrite

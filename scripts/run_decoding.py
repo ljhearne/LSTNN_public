@@ -1,3 +1,7 @@
+'''
+Performs the supplementary decoding analysis: tests whether task features 
+can be recovered from fMRI activations
+'''
 from lstnn.compare_rdms import get_transformer_weights
 from lstnn.dataset import get_dataset
 from lstnn.generate_fMRI_rdms import load_group_data
@@ -16,8 +20,8 @@ import nibabel as nb
 
 
 # Parameters
-data_dir = "/home/lukeh/projects/LSTNN/data/"
-fmri_data_dir = "/home/lukeh/projects/LSTNN/data/fMRI/"
+data_dir = "projects/LSTNN/data/"
+fmri_data_dir = "projects/LSTNN/data/fMRI/"
 
 # these are derived based on head motion
 subject_list = [2, 4, 5, 6, 7, 8, 9, 11, 12, 13, 15,

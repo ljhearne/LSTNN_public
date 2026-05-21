@@ -1,3 +1,10 @@
+"""Core ANN-to-fMRI RDM comparison with permutation testing.
+
+Extracts activations from trained Transformer models, computes Representational
+Dissimilarity Matrices (RDMs), and compares them to fMRI-derived RDMs using
+rsatoolbox. Used by run_RSA.py and the analysis notebooks.
+"""
+import os
 import numpy as np
 import pandas as pd
 import rsatoolbox
@@ -60,8 +67,8 @@ parser.add_argument('--overwrite',
 n_jobs = 24
 
 # ANN
-data_dir = "/home/lukeh/projects/LSTNN/data/"
-data_dir_ldrive = "/home/lukeh/LabData/Lab_LucaC/Luke/projects/LSTNN/data/"
+data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data") + "/"
+# data_dir_ldrive = "/home/lukeh/LabData/..."  # original lab path (not in public repo)
 seeds = [2235, 6312, 6068, 9742, 8880, 2197, 669,
          6256, 3309, 2541, 8643, 7785, 195, 6914, 29]
 model_label = 'BERT'
@@ -154,7 +161,7 @@ def create_ds_from_ann(weights, label):
     return ds
 
 
-def get_transformer_weights(LST_puzzle_ds, pe_desc, epoch, data_dir=data_dir_ldrive):
+def get_transformer_weights(LST_puzzle_ds, pe_desc, epoch, data_dir=data_dir):
     """
     Load trained transformer models with different seeds, extract and return
     attention weights, attention outputs, MLP outputs, and response predictions

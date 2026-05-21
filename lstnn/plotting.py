@@ -1,3 +1,9 @@
+"""Publication-quality brain surface plotting utilities.
+
+Provides 4-panel brain visualisations (lateral/medial × left/right) with
+optional contour overlays for displaying RSA and decoding results on the
+cortical surface. Used by the analysis notebooks for figure generation.
+"""
 import nibabel as nb
 import seaborn as sns
 import hcp_utils as hcp
@@ -51,12 +57,12 @@ def pub_surf_plot(input_array, parcellation, save=None, size=(2.2, 2.2), thresh=
 
             if save is not None:
                 plt.close("all")
-                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=thresh,
+                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=abs(thresh) if thresh is not None else None,
                                             hemi=hemi, bg_on_data=True, darkness=darkness,
                                             alpha=alpha, vmax=vmax, vmin=vmin, colorbar=False, symmetric_cbar=False)
                 plt.savefig(save+'_'+hemi+'_'+view+'.jpeg', dpi=600)
                 plt.close("all")
-                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=thresh,
+                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=abs(thresh) if thresh is not None else None,
                                             hemi=hemi, bg_on_data=True, darkness=darkness,
                                             alpha=alpha, vmax=vmax, vmin=vmin, colorbar=True, symmetric_cbar=False)
                 plt.savefig(save+'_'+hemi+'_'+view+'_colorbar.jpeg', dpi=600)
@@ -66,7 +72,7 @@ def pub_surf_plot(input_array, parcellation, save=None, size=(2.2, 2.2), thresh=
 
                 ax = axs[ax_list[count]]
 
-                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=thresh,
+                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=abs(thresh) if thresh is not None else None,
                                             hemi=hemi, bg_on_data=True, darkness=darkness, axes=ax,
                                             alpha=alpha, vmax=vmax, vmin=vmin, colorbar=True, symmetric_cbar=False)
 
@@ -121,7 +127,7 @@ def pub_surf_plot_contours(input_array, input_array2, parcellation, save=None, s
 
             if save is not None:
                 plt.close("all")
-                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=thresh,
+                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=abs(thresh) if thresh is not None else None,
                                             hemi=hemi, bg_on_data=True, darkness=darkness,
                                             alpha=alpha, vmax=vmax, vmin=vmin, colorbar=False, symmetric_cbar=False)
                 ax = plt.gca()
@@ -132,7 +138,7 @@ def pub_surf_plot_contours(input_array, input_array2, parcellation, save=None, s
                         print("contour not plotting", hemi, view)
                 plt.savefig(save+'_'+hemi+'_'+view+'.jpeg', dpi=600)
                 plt.close("all")
-                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=thresh,
+                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=abs(thresh) if thresh is not None else None,
                                             hemi=hemi, bg_on_data=True, darkness=darkness,
                                             alpha=alpha, vmax=vmax, vmin=vmin, colorbar=True, symmetric_cbar=False)
                 plt.savefig(save+'_'+hemi+'_'+view+'_colorbar.jpeg', dpi=600)
@@ -141,7 +147,7 @@ def pub_surf_plot_contours(input_array, input_array2, parcellation, save=None, s
             else:
                 ax = axs[ax_list[count]]
 
-                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=thresh,
+                plotting.plot_surf_stat_map(mesh, surface, bg_map=bg_map, view=view, cmap=cmap, threshold=abs(thresh) if thresh is not None else None,
                                             hemi=hemi, bg_on_data=True, darkness=darkness, axes=ax,
                                             alpha=alpha, vmax=vmax, vmin=vmin, colorbar=False, symmetric_cbar=False)
                 

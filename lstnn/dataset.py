@@ -1,3 +1,10 @@
+"""Data loading and preprocessing for Latin Square Task puzzles.
+
+Converts CSV puzzle files into PyTorch Datasets with one-hot encoding,
+transcribes original MATLAB fMRI task data to CSV, and provides utility
+functions for puzzle-to-tensor conversion. Used by all training scripts
+and analysis notebooks.
+"""
 from random import choice
 import pandas as pd
 import numpy as np

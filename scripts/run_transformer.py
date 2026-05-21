@@ -1,13 +1,17 @@
+"""
+Trains Transformer models on the Latin Squares Task with configurable
+positional encoding (1dpe, 2dpe, rope, shaw, nope, cnope, etc.),
+architecture parameters, and curriculum learning strategies.
+Saves trained model checkpoints and per-epoch accuracy/loss for analysis.
+"""
+
 import pandas as pd
 from torch import nn
 from torch.utils.data import Subset
-import matplotlib.pyplot as plt
 from lstnn.dataset import get_dataset, PuzzleDataset
-from lstnn.model import FFN, LSTM_combined, LSTM
 import lstnn.transformer_main as transformer_main
 from lstnn.seed import set_global_seed
-import lstnn
-from curricula import get_curriculum
+from lstnn.curricula import get_curriculum
 import numpy as np
 import torch
 import time

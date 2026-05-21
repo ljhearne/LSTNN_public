@@ -1,3 +1,10 @@
+"""
+Computes split-half noise ceilings for the fMRI data to estimate the
+upper bound on RDM correlations given measurement noise. Averages
+correlations across many random split-half partitions per brain region.
+"""
+
+from pathlib import Path
 import os
 from scipy.stats import pearsonr
 from lstnn.generate_fMRI_rdms import load_group_data, get_group_roi_ds
@@ -8,8 +15,10 @@ import pandas as pd
 import rsatoolbox
 from joblib import Parallel, delayed
 
+
+PROJECT_ROOT = Path(os.path.dirname(os.path.abspath(__file__))).parent
 # Global variables that I don't plan on changing in the pipeline
-data_in = "/home/lukeh/projects/LSTNN/data/fMRI/"
+data_in = str(PROJECT_ROOT / "data" / "fMRI") + "/"
 denoise = "14p"
 stat = "t"
 subject_list = [2, 4, 5, 6, 7, 8, 9, 11, 12, 13, 15,
@@ -22,7 +31,7 @@ rdm_method = "crossnobis"
 n_perms = 1000
 group = "group"
 out = (
-    f"/home/lukeh/projects/LSTNN/results/noise_ceilings/{group}_"
+    str(PROJECT_ROOT / "processed_data" / "noise_ceilings" / f"{group}_")
     f"atlas-{atlas}/fmethod-{rdm_method}_"
     f"cmethod-spearman_"
     f"nperms-{n_perms}_roi-"

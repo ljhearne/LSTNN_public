@@ -1,6 +1,7 @@
-fmriprep_dir: "/home/lukeh/hpcworking/shared/projects/LST7T/data/derivatives/fmriprep/"
-bids_dir: "/home/lukeh/hpcworking/shared/projects/LST7T/data/bids/"
-in_dir: "/home/lukeh/hpcworking/shared/projects/LST7T/data/"
+# HPC-specific paths (not included in public repo)
+# fmriprep_dir: "/path/to/fmriprep/"
+# bids_dir: "/path/to/bids/"
+# in_dir: "/path/to/data/"
 
 
 pybids_inputs:
@@ -15,7 +16,7 @@ pybids_inputs:
       - subject
       - run
 
-out_data: "/home/lukeh/projects/LSTNN/data/fMRI_late/"
+out_data: "./processed_data/fmri/"  # relative to project root
 
 denoise:
   - "14p"
