@@ -32,7 +32,7 @@ processed_data/noise_ceilings/
 #processed_data/model-ffn/
 #processed_data/model-lstm/
 #processed_data/pe-*.csv
-
+lstnn/__pycache__/
 # Neuroimaging intermediate files
 *.nii
 *.nii.gz
